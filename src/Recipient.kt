@@ -1,2 +1,3 @@
-class Recipient {
+class Recipient : Address() {
+    var priorityLevel: String = " "
 }
