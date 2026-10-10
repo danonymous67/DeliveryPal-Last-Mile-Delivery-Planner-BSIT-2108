@@ -10,7 +10,7 @@ class Recipient : Person() {
         address.setAddress(street, baranggay, landmark)
     }
 
-    fun displayRecipientAddress() {
+    fun getRecipientAddress() {
         println(address.getAddress())
     }
 }
