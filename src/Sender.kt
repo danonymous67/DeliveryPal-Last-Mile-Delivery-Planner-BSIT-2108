@@ -1,4 +1,5 @@
-class Sender: Person() {
+class Sender(name:String, phone:String)
+    : Person(name, phone) {
     private var address: Address = Address()
 
     fun setSenderAddress(
