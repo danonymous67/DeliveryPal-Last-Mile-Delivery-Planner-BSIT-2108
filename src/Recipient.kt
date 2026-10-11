@@ -13,4 +13,7 @@ class Recipient : Person() {
     fun getRecipientAddress() {
         println(address.getAddress())
     }
+    fun getPriorityLevel(){
+        println(priorityLevel)
+    }
 }
