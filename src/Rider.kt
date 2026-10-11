@@ -9,7 +9,7 @@ class Rider (name: String, phone : String)
             latitude = newLat
         }
     }
-    fun displauCoordinates(){
+    fun displayCoordinates(){
         println("Latitude: $latitude")
         println("Longitude: $longitude")
 
