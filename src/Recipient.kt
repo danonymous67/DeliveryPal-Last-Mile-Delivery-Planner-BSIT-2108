@@ -1,4 +1,4 @@
-class Recipient(name: String, phone: String)
+class Recipient(name:String, phone:String)
     : Person(name, phone) {
     private var address: Address = Address()
     private var priorityLevel: String = "Normal"
@@ -10,9 +10,12 @@ class Recipient(name: String, phone: String)
     ) {
         address.setAddress(street, baranggay, landmark)
     }
-
     fun getRecipientAddress() {
         println(address.getAddress())
+    }
+    fun setPriorityLevel(priorityLevel: String){
+        if (priorityLevel == "Normal" || priorityLevel == "High" || priorityLevel == "Relaxed")
+            this.priorityLevel = priorityLevel
     }
     fun getPriorityLevel(){
         println(priorityLevel)
