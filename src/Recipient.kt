@@ -14,7 +14,7 @@ class Recipient(name:String, phone:String)
         println(address.getAddress())
     }
     fun setPriorityLevel(priorityLevel: String){
-        if (priorityLevel == "Normal" || priorityLevel == "High" || priorityLevel == "Relaxed")
+        if (priorityLevel == "Normal" || priorityLevel == "Urgent" || priorityLevel == "Relaxed")
             this.priorityLevel = priorityLevel
     }
     fun getPriorityLevel(){
