@@ -13,7 +13,7 @@ class DeliveryOrder(
         sender.displayInfo()
         sender.getSenderAddress()
 
-        println("\nRecipient:")
+        println("Recipient:")
         recipient.displayInfo()
         recipient.getRecipientAddress()
 
