@@ -2,8 +2,7 @@ class DeliveryDetails(
     private var orderId: String = "",
     private var sender: Sender,
     private var recipient: Recipient,
-    private var packageDetails: PackageDetails,
-    private var priorityLevel: Recipient
+    private var packageDetails: PackageDetails
 ) {
     fun assignOrderID(orderId: String) {
         this.orderId = orderId
