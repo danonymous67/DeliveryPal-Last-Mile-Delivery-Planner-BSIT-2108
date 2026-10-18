@@ -17,7 +17,7 @@ class Recipient(name:String, phone:String)
         if (priorityLevel == "Normal" || priorityLevel == "Urgent" || priorityLevel == "Relaxed")
             this.priorityLevel = priorityLevel
     }
-    fun getPriorityLevel(){
-        println(priorityLevel)
+    fun getPriorityLevel(): String{
+        return(priorityLevel)
     }
 }
