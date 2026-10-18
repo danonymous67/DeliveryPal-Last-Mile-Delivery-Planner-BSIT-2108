@@ -14,8 +14,8 @@ class Delivery(
     fun assignID(newID: String) {
         deliveryId = newID
     }
-    fun getRiderName(): Rider?{
-        return(rider)
+    fun getRiderName(): String? {
+        return rider?.getName()
     }
     fun displayDeliveryInfo() {
         println("Delivery ID: $deliveryId")
