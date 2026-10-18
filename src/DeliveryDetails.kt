@@ -10,13 +10,13 @@ class DeliveryDetails(
     fun displayOrderInfo() {
         println("Order ID: $orderId")
         println("Priority:")
-        recipient.getPriorityLevel()
+        print(recipient.getPriorityLevel())
         println("Sender:")
         sender.displayInfo()
-        sender.getSenderAddress()
+        print(sender.getSenderAddress())
         println("Recipient:")
         recipient.displayInfo()
-        recipient.getRecipientAddress()
+        println(recipient.getRecipientAddress())
         println("Package:")
         packageDetails.displayPackageInfo()
     }
