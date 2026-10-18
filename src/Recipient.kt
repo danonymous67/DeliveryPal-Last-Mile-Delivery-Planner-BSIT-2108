@@ -1,5 +1,5 @@
 class Recipient(name:String, phone:String)
-    : Person(name, phone) {
+    : User(name, phone) {
     private var address: Address = Address()
     private var priorityLevel: String = "Normal"
 

@@ -1,5 +1,5 @@
 class Sender(name:String, phone:String)
-    : Person(name, phone) {
+    : User(name, phone){
     private var address: Address = Address()
 
     fun setSenderAddress(
@@ -9,7 +9,7 @@ class Sender(name:String, phone:String)
     {
         address.setAddress(street, baranggay, landmark)
     }
-    fun getSenderAddress(){
-        println(address.getAddress())
+    fun getSenderAddress(): String{
+        return(address.getAddress())
     }
 }

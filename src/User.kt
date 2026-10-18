@@ -1,4 +1,4 @@
-abstract class Person(
+abstract class User(
     protected var name: String,
     protected var phone: String
 ){

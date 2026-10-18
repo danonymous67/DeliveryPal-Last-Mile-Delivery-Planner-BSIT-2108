@@ -1,5 +1,5 @@
-class Rider (name: String, phone : String)
-    : Person(name, phone){
+class Rider(name:String, phone:String)
+    : User(name, phone){
     private var longitude: Double = 0.0
     private var latitude: Double = 0.0
 
@@ -12,6 +12,5 @@ class Rider (name: String, phone : String)
     fun displayCoordinates(){
         println("Latitude: $latitude")
         println("Longitude: $longitude")
-
     }
 }
