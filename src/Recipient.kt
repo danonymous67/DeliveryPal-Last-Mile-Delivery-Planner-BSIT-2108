@@ -10,8 +10,8 @@ class Recipient(name:String, phone:String)
     ) {
         address.setAddress(street, baranggay, landmark)
     }
-    fun getRecipientAddress() {
-        println(address.getAddress())
+    fun getRecipientAddress(): String {
+        return(address.getAddress())
     }
     fun setPriorityLevel(priorityLevel: String){
         if (priorityLevel == "Normal" || priorityLevel == "Urgent" || priorityLevel == "Relaxed")
