@@ -14,6 +14,9 @@ class Delivery(
     fun assignID(newID: String) {
         deliveryId = newID
     }
+    fun getRiderName(): Rider?{
+        return(rider)
+    }
     fun displayDeliveryInfo() {
         println("Delivery ID: $deliveryId")
         println("Status: $status")
@@ -21,6 +24,7 @@ class Delivery(
         println("Order Details:")
         deliveryOrder.displayOrderInfo()
 
-        println("Assigned Rider: $rider")
+        println("Assigned Rider")
+        println(getRiderName())
         }
     }
