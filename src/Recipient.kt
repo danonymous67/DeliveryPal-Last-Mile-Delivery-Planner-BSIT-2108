@@ -8,7 +8,7 @@ class Recipient(name:String, phone:String)
         baranggay: String,
         landmark: String
     ) {
-        address.setAddress(street, barangay, landmark)
+        address.setAddress(street, baranggay, landmark)
     }
     fun getRecipientAddress(): String {
         return(address.getAddress())
