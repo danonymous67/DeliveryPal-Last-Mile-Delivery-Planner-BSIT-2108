@@ -1,15 +1,15 @@
 class Address {
     private var street: String = ""
-    private var barangay: String = ""
+    private var baranggay: String = ""
     private var landmark: String = ""
 
     fun getAddress(): String {
-        return ("$street, $barangay, $landmark")
+        return ("$street, $baranggay, $landmark")
     }
 
-    fun setAddress(street: String, barangay: String, landmark: String) {
+    fun setAddress(street: String, baranggay: String, landmark: String) {
         this.street = street
-        this.baranggay = barangay
+        this.baranggay = baranggay
         this.landmark = landmark
     }
 }
