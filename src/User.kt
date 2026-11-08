@@ -10,7 +10,4 @@ abstract class User(
         this.name = name
         this.phone = phone
     }
-    fun getName(): String {
-        return name
-    }
 }
