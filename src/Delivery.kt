@@ -34,7 +34,7 @@ class Delivery(
 
         println("\nPriority: ${recipient.getPriorityLevel()}")
 
-        println("\nPackage:")
+        println("\nPackage")
         packageDetails.displayPackageInfo()
 
         println("\nAssigned Rider:")

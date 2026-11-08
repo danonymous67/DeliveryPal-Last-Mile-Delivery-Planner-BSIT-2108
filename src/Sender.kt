@@ -9,9 +9,10 @@ class Sender(name: String, phone: String) : User(name, phone) {
 
     fun createPackageDetails(
         description: String,
-        weight: Double
+        weight: Double,
+        quantity: Int
     ): PackageDetails {
-        return PackageDetails(description, weight)
+        return PackageDetails(description, weight, quantity)
     }
 
     fun createDeliveryRequest(
@@ -23,6 +24,7 @@ class Sender(name: String, phone: String) : User(name, phone) {
         landmark: String,
         description: String,
         weight: Double,
+        quantity: Int,
         priority: String
     ): Delivery {
 
@@ -30,7 +32,7 @@ class Sender(name: String, phone: String) : User(name, phone) {
         recipient.setRecipientAddress(street, baranggay, landmark)
         recipient.setPriorityLevel(priority)
 
-        val packageDetails = createPackageDetails(description, weight)
+        val packageDetails = createPackageDetails(description, weight, quantity)
 
         return Delivery(
             deliveryId = orderId,
