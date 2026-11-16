@@ -20,6 +20,14 @@ class Delivery(
         deliveryId = newID
     }
 
+    fun getDeliveryId(): String {
+        return deliveryId
+    }
+
+    fun getStatus(): String {
+        return status
+    }
+
     fun displayDeliveryInfo() {
         println("Delivery ID: $deliveryId")
         println("Status: $status")

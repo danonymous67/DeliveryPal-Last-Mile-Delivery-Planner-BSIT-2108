@@ -8,7 +8,6 @@ class PackageDetails(
         println("Weight: $weight kg")
         println("Quantity: $quantity")
     }
-
     fun getTotalWeight(): Double {
         return weight*quantity
     }
