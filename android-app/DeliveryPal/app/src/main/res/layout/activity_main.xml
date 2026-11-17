@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- The Mapsforge MapView container with accessibility description -->
+    <org.mapsforge.map.android.view.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/map_description" />
+
+    <!-- Button styled with margins so it doesn't get hidden under the system status bar -->
+    <Button
+        android:id="@+id/btOpenMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="@string/open_map" />
+
+    <!-- Mandatory OpenStreetMap attribution using string resource -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:text="@string/osm_attribution"
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>
