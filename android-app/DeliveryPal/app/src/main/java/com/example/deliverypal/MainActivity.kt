@@ -175,13 +175,7 @@ fun DeliveryPalApp() {
                         onLastNameChange = { senderLastName = it },
                         phone = senderPhone,
                         onPhoneChange = { senderPhone = it },
-                        onProceed = {
-                            if (senderFirstName.isBlank() || senderLastName.isBlank() || senderPhone.isBlank()) {
-                                Toast.makeText(context, "Please enter your name and phone number", Toast.LENGTH_SHORT).show()
-                            } else {
-                                currentScreen = AppScreen.STEP2_PACKAGE_DETAILS
-                            }
-                        }
+                        onProceed = { currentScreen = AppScreen.STEP2_PACKAGE_DETAILS }
                     )
 
                     AppScreen.STEP2_PACKAGE_DETAILS -> Step2PackageDetails(
@@ -243,13 +237,7 @@ fun DeliveryPalApp() {
                         landmark = recipientLandmark,
                         onLandmarkChange = { recipientLandmark = it },
                         onBack = { currentScreen = AppScreen.STEP4_SENDER_PIN },
-                        onProceed = {
-                            if (recipientFirstName.isBlank() || recipientLastName.isBlank() || recipientPhone.isBlank()) {
-                                Toast.makeText(context, "Please enter recipient name and phone number", Toast.LENGTH_SHORT).show()
-                            } else {
-                                currentScreen = AppScreen.STEP6_RECIPIENT_PIN
-                            }
-                        }
+                        onProceed = { currentScreen = AppScreen.STEP6_RECIPIENT_PIN }
                     )
 
                     AppScreen.STEP6_RECIPIENT_PIN -> Step6RecipientPinMap(
@@ -549,6 +537,43 @@ fun Step1SenderInfo(
     onPhoneChange: (String) -> Unit,
     onProceed: () -> Unit
 ) {
+    val context = LocalContext.current
+    var showErrors by remember { mutableStateOf(false) }
+
+    fun getFirstNameError(): String? {
+        if (firstName.isBlank()) return if (showErrors) "First name is required" else null
+        if (!firstName.all { it.isLetter() || it == ' ' }) {
+            return "Name can only contain letters and spaces (no numbers or special characters)"
+        }
+        return null
+    }
+
+    fun getLastNameError(): String? {
+        if (lastName.isBlank()) return if (showErrors) "Last name is required" else null
+        if (!lastName.all { it.isLetter() || it == ' ' }) {
+            return "Name can only contain letters and spaces (no numbers or special characters)"
+        }
+        return null
+    }
+
+    fun getPhoneError(): String? {
+        if (phone.isBlank()) return if (showErrors) "Phone number is required" else null
+        if (!phone.all { it.isDigit() }) {
+            return "Phone number must contain only numbers (0-9)"
+        }
+        if (phone.length != 11) {
+            return if (showErrors || phone.length > 11) "Phone number must be exactly 11 digits (e.g., 09XXXXXXXXX)" else null
+        }
+        return null
+    }
+
+    val firstNameError = getFirstNameError()
+    val lastNameError = getLastNameError()
+    val phoneError = getPhoneError()
+
+    val isValid = firstNameError == null && lastNameError == null && phoneError == null &&
+            firstName.isNotBlank() && lastName.isNotBlank() && phone.length == 11
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -576,6 +601,12 @@ fun Step1SenderInfo(
                         value = firstName,
                         onValueChange = onFirstNameChange,
                         label = { Text("First Name") },
+                        isError = firstNameError != null,
+                        supportingText = {
+                            if (firstNameError != null) {
+                                Text(text = firstNameError, color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
+                            }
+                        },
                         singleLine = true,
                         modifier = Modifier.weight(1f)
                     )
@@ -584,6 +615,12 @@ fun Step1SenderInfo(
                         value = lastName,
                         onValueChange = onLastNameChange,
                         label = { Text("Last Name") },
+                        isError = lastNameError != null,
+                        supportingText = {
+                            if (lastNameError != null) {
+                                Text(text = lastNameError, color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
+                            }
+                        },
                         singleLine = true,
                         modifier = Modifier.weight(1f)
                     )
@@ -591,10 +628,20 @@ fun Step1SenderInfo(
 
                 OutlinedTextField(
                     value = phone,
-                    onValueChange = onPhoneChange,
+                    onValueChange = { input ->
+                        if (input.length <= 11) {
+                            onPhoneChange(input)
+                        }
+                    },
                     label = { Text("Phone Number") },
                     placeholder = { Text("09XXXXXXXXX") },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    isError = phoneError != null,
+                    supportingText = {
+                        if (phoneError != null) {
+                            Text(text = phoneError, color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
+                        }
+                    },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -604,7 +651,14 @@ fun Step1SenderInfo(
         Spacer(modifier = Modifier.weight(1f))
 
         Button(
-            onClick = onProceed,
+            onClick = {
+                showErrors = true
+                if (isValid) {
+                    onProceed()
+                } else {
+                    Toast.makeText(context, "Please fix errors before proceeding", Toast.LENGTH_SHORT).show()
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(52.dp),
@@ -907,6 +961,43 @@ fun Step5RecipientAddress(
     onBack: () -> Unit,
     onProceed: () -> Unit
 ) {
+    val context = LocalContext.current
+    var showErrors by remember { mutableStateOf(false) }
+
+    fun getFirstNameError(): String? {
+        if (firstName.isBlank()) return if (showErrors) "First name is required" else null
+        if (!firstName.all { it.isLetter() || it == ' ' }) {
+            return "Name can only contain letters and spaces (no numbers or special characters)"
+        }
+        return null
+    }
+
+    fun getLastNameError(): String? {
+        if (lastName.isBlank()) return if (showErrors) "Last name is required" else null
+        if (!lastName.all { it.isLetter() || it == ' ' }) {
+            return "Name can only contain letters and spaces (no numbers or special characters)"
+        }
+        return null
+    }
+
+    fun getPhoneError(): String? {
+        if (phone.isBlank()) return if (showErrors) "Phone number is required" else null
+        if (!phone.all { it.isDigit() }) {
+            return "Phone number must contain only numbers (0-9)"
+        }
+        if (phone.length != 11) {
+            return if (showErrors || phone.length > 11) "Phone number must be exactly 11 digits (e.g., 09XXXXXXXXX)" else null
+        }
+        return null
+    }
+
+    val firstNameError = getFirstNameError()
+    val lastNameError = getLastNameError()
+    val phoneError = getPhoneError()
+
+    val isValid = firstNameError == null && lastNameError == null && phoneError == null &&
+            firstName.isNotBlank() && lastName.isNotBlank() && phone.length == 11
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -934,6 +1025,12 @@ fun Step5RecipientAddress(
                         value = firstName,
                         onValueChange = onFirstNameChange,
                         label = { Text("First Name") },
+                        isError = firstNameError != null,
+                        supportingText = {
+                            if (firstNameError != null) {
+                                Text(text = firstNameError, color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
+                            }
+                        },
                         singleLine = true,
                         modifier = Modifier.weight(1f)
                     )
@@ -942,6 +1039,12 @@ fun Step5RecipientAddress(
                         value = lastName,
                         onValueChange = onLastNameChange,
                         label = { Text("Last Name") },
+                        isError = lastNameError != null,
+                        supportingText = {
+                            if (lastNameError != null) {
+                                Text(text = lastNameError, color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
+                            }
+                        },
                         singleLine = true,
                         modifier = Modifier.weight(1f)
                     )
@@ -949,10 +1052,20 @@ fun Step5RecipientAddress(
 
                 OutlinedTextField(
                     value = phone,
-                    onValueChange = onPhoneChange,
+                    onValueChange = { input ->
+                        if (input.length <= 11) {
+                            onPhoneChange(input)
+                        }
+                    },
                     label = { Text("Phone Number") },
                     placeholder = { Text("09XXXXXXXXX") },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    isError = phoneError != null,
+                    supportingText = {
+                        if (phoneError != null) {
+                            Text(text = phoneError, color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
+                        }
+                    },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -1001,7 +1114,14 @@ fun Step5RecipientAddress(
             }
 
             Button(
-                onClick = onProceed,
+                onClick = {
+                    showErrors = true
+                    if (isValid) {
+                        onProceed()
+                    } else {
+                        Toast.makeText(context, "Please fix errors before proceeding", Toast.LENGTH_SHORT).show()
+                    }
+                },
                 modifier = Modifier
                     .weight(1f)
                     .height(52.dp),
